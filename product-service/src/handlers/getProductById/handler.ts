@@ -12,7 +12,11 @@ export const getProductById = middyfy(async (event) => {
 	}
 
 	return {
-		statusCode: 503,
+		statusCode: 404,
+		headers: {
+			'Access-Control-Allow-Origin': '*',
+			'Access-Control-Allow-Credentials': true,
+		},
 		body: JSON.stringify({
 			error: `Product with productId="${productId}" not found`,
 		})
