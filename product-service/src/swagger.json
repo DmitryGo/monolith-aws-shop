@@ -1,0 +1,116 @@
+{
+	"swagger": "2.0",
+	"info": {
+		"version": "1.0.0",
+		"title": "Product service API",
+		"description": "Product service API"
+	},
+	"host": "e1cg7th083.execute-api.us-east-1.amazonaws.com",
+	"basePath": "/dev",
+	"tags": [
+		{
+			"name": "products",
+			"description": "API for products"
+		}
+	],
+	"schemes": [
+		"https"
+	],
+	"consumes": [
+		"application/json"
+	],
+	"produces": [
+		"application/json"
+	],
+	"paths": {
+		"/products": {
+			"get": {
+				"description": "Get all products",
+				"produces": [
+					"application/json"
+				],
+				"responses": {
+					"200": {
+						"headers": {
+							"Access-Control-Allow-Origin": {
+								"type": "string",
+								"default": "e1cg7th083.execute-api.us-east-1.amazonaws.com"
+							},
+							"Access-Control-Allow-Methods": {
+								"type": "string"
+							},
+							"Access-Control-Allow-Headers": {
+								"type": "string"
+							}
+						},
+						"description": "OK",
+						"schema": {
+							"$ref": "#/definitions/Products"
+						}
+					}
+				}
+			}
+		},
+		"/products/{productId}": {
+			"parameters": [
+				{
+					"name": "productId",
+					"in": "path",
+					"required": true,
+					"description": "ID of product that we want to find",
+					"type": "number"
+				}
+			],
+			"get": {
+				"summary": "Get product with given ID",
+				"responses": {
+					"200": {
+						"description": "product is found",
+						"schema": {
+							"$ref": "#/definitions/Product"
+						}
+					},
+					"404": {
+						"description": "product by id is not found",
+						"schema": {
+							"$ref": "#/definitions/Error"
+						}
+					}
+				}
+			}
+		}
+	},
+	"definitions": {
+		"Product": {
+			"required": [
+				"name",
+				"id"
+			],
+			"properties": {
+				"id": {
+					"type": "number",
+					"uniqueItems": true
+				},
+				"price": {
+					"type": "number"
+				},
+				"name": {
+					"type": "string"
+				}
+			}
+		},
+		"Products": {
+			"type": "array",
+			"items": {
+				"$ref": "#/definitions/Product"
+			}
+		},
+		"Error": {
+			"properties": {
+				"error": {
+					"type": "string"
+				}
+			}
+		}
+	}
+}
